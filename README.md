@@ -2,6 +2,12 @@
 
 Firmware for the **Waveshare Industrial 6CH ESP32-S3 WiFi Relay Module** used with pools that have a Joyonway controller. It connects the controller's RS485 bus to a TCP client such as `ha-joyonway` and exposes the board's six relays through MQTT.
 
+<a href="https://www.waveshare.com/media/catalog/product/e/s/esp32-s3-relay-6ch-1.jpg"><img src="https://www.waveshare.com/media/catalog/product/e/s/esp32-s3-relay-6ch-1.jpg" alt="Waveshare Industrial 6CH ESP32-S3 WiFi Relay Module" width="320"></a>
+
+Hardware: [Waveshare ESP32-S3-Relay-6CH](https://www.waveshare.com/product/modules/esp32-s3-relay-6ch.htm). Budget approximately **€50** for the module, depending on seller and shipping; check the current price before ordering. Image: Waveshare.
+
+For weak Wi-Fi reception, a [2.4 GHz Yagi antenna](https://de.aliexpress.com/item/1005011837962454.html) may help. A Yagi focuses both transmission and reception toward the access point, so it should be aimed accordingly. The board has an SMA female antenna connector; check that the antenna or its cable has a matching SMA male connector before ordering.
+
 ## How it works
 
 The gateway forwards bytes received from RS485 to the TCP control client. Commands sent by that client are assembled into complete Joyonway frames (`0x1A ... 0x1D`) and queued. The gateway watches the controller's bus traffic and transmits one queued command after a sync frame and the following `0x21` poll, with a 10 ms guard interval. This lets the controller's traffic determine when commands are inserted; TCP input is not written to RS485 immediately. The queue holds up to eight frames, and commands expire after five seconds. It is cleared when the control client or Wi-Fi connection closes.
