@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Debug TCP 192.168.178.70:8080",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/python/tcp_read.py"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "clear": true
+            }
+        }
+    ]
+}
